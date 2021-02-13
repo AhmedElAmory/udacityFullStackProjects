@@ -66,19 +66,15 @@ One note before you delve into your tasks: for each endpoint you are expected to
 8. Create a POST endpoint to get questions to play the quiz. This endpoint should take category and previous question parameters and return a random questions within the given category, if provided, and that is not one of the previous questions. 
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
-REVIEW_COMMENT
-```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
 
-
-###End Points
+##End Points
 
 GET /questions
 
 returns a list of the available questions
 
 response sample:
-
+```
 {
   "categories": [
     "Science",
@@ -90,33 +86,33 @@ response sample:
   ],
   "success": true
 }
-
+```
 DELETE /question/<int:question_id>
 
 deletes a certain question using it's id
 
 response sample:
-
+```
 {
   "success": true
 }
-
+```
 POST /question
 
 add a new question
 
 response sample:
-
+```
 {
   "success": true
 }
-
+```
 POST /questions/search
 
 searches for the available questions containing a certain string
 
 response sample:
-
+```
 {
 "success": true,
 "questions": [
@@ -131,13 +127,13 @@ response sample:
 "total_questions": 1,
 "currentCategory": "Science"
 }
-
+```
 GET /category/<int:id>/questions
 
 returns a list of questions of a specific category
 
 response sample:
-
+```
 {
   "current_category": "Art",
   "questions": [
@@ -195,13 +191,13 @@ Van Gogh sell in his lifetime?"
   "success": true,
   "total_questions": 7
 }
-
+```
 POST /quizzes
 
 start a quiz of a specific category
 
 response sample:
-
+```
 {
   "success":true,
   "question":{
@@ -212,7 +208,7 @@ response sample:
                 "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
              }
 }
-
+```
 
 ## Testing
 To run the tests, run
