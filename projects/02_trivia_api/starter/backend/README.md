@@ -70,24 +70,148 @@ REVIEW_COMMENT
 ```
 This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
 
-Endpoints
-GET '/categories'
-GET ...
-POST ...
-DELETE ...
 
-GET '/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
-- Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
+###End Points
 
-```
+GET /questions
+
+returns a list of the available questions
+
+response sample:
+
+{
+  "categories": [
+    "Science",
+    "Art",
+    "Geography",
+    "History",
+    "Entertainment",
+    "Sports"
+  ],
+  "success": true
+}
+
+DELETE /question/<int:question_id>
+
+deletes a certain question using it's id
+
+response sample:
+
+{
+  "success": true
+}
+
+POST /question
+
+add a new question
+
+response sample:
+
+{
+  "success": true
+}
+
+POST /questions/search
+
+searches for the available questions containing a certain string
+
+response sample:
+
+{
+"success": true,
+"questions": [
+  {
+  "id": 22, 
+  "question": "Hematology is a branch of medicine involving the study of what?",
+  "answer": 'Blood',
+  "category": 1,
+  "difficulty": 4
+  }
+],
+"total_questions": 1,
+"currentCategory": "Science"
+}
+
+GET /category/<int:id>/questions
+
+returns a list of questions of a specific category
+
+response sample:
+
+{
+  "current_category": "Art",
+  "questions": [
+    {
+      "answer": "Escher",
+      "category": 2,
+      "difficulty": 1,
+      "id": 16,
+      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+    },
+    {
+      "answer": "Mona Lisa",
+      "category": 2,
+      "difficulty": 3,
+      "id": 17,
+      "question": "La Giaconda is better known as what?"
+    },
+    {
+      "answer": "One",
+      "category": 2,
+      "difficulty": 4,
+      "id": 18,
+      "question": "How many paintings did 
+Van Gogh sell in his lifetime?"
+    },
+    {
+      "answer": "Jackson Pollock",        
+      "category": 2,
+      "difficulty": 2,
+      "id": 19,
+      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?" 
+    },
+    {
+      "answer": "",
+      "category": 2,
+      "difficulty": 1,
+      "id": 36,
+      "question": "pol"
+    },
+    {
+      "answer": "",
+      "category": 2,
+      "difficulty": 1,
+      "id": 42,
+      "question": "ok"
+    },
+    {
+      "answer": "za",
+      "category": 2,
+      "difficulty": 1,
+      "id": 61,
+      "question": "za"
+    }
+  ],
+  "success": true,
+  "total_questions": 7
+}
+
+POST /quizzes
+
+start a quiz of a specific category
+
+response sample:
+
+{
+  "success":true,
+  "question":{
+                "answer": "Escher",
+                "category": 2,
+                "difficulty": 1,
+                "id": 16,
+                "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
+             }
+}
 
 
 ## Testing
@@ -98,3 +222,8 @@ createdb trivia_test
 psql trivia_test < trivia.psql
 python test_flaskr.py
 ```
+
+
+Authors:
+
+Ahmed ElAmory
