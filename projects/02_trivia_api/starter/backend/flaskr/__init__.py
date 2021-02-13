@@ -99,7 +99,7 @@ def create_app(test_config=None):
   This removal will persist in the database and when you refresh the page. 
   '''
 
-  @app.route('/questions/<int:question_id>',methods=['DELETE'])
+  @app.route('/question/<int:question_id>',methods=['DELETE'])
   def delete_question(question_id):
       question = Question.query.filter(Question.id == question_id).one_or_none()
 
@@ -134,8 +134,12 @@ def create_app(test_config=None):
     difficulty = body.get('difficulty', None)
     category = body.get('category', None)
 
+    print(type(category))
+
+    
+
     try:
-      newquestion = Question(question=question, answer=answer, difficulty=difficulty ,category=category)
+      newquestion = Question(question=question, answer=answer, difficulty=difficulty ,category=int(category)+1)
       newquestion.insert()
 
       return jsonify({
@@ -192,7 +196,7 @@ def create_app(test_config=None):
   category to be shown. 
   '''
 
-  @app.route('/categories/<int:id>/questions')
+  @app.route('/category/<int:id>/questions')
   def retrieve_questionsByCategory(id):
     categories = Category.query.order_by(Category.id).all()
     categories_data= [category.type for category in categories]
@@ -209,8 +213,6 @@ def create_app(test_config=None):
     if len(questions_data[start:end]) == 0:
       abort(404)
     
-    print(start)
-    print(end)
     totalquestions=len(questions)
 
     return jsonify({
@@ -258,9 +260,13 @@ def create_app(test_config=None):
             listx.remove(i)
 
       
+      if(len(listx)==0):
+        return jsonify({
+          'success':True
+        })
 
-      print(listx)
       num1 = random.randint(0, len(listx)-1)
+
 
       return jsonify({
         'success':True,
@@ -276,7 +282,6 @@ def create_app(test_config=None):
   Create error handlers for all expected errors 
   including 404 and 422. 
   '''
-
 
   @app.errorhandler(404)
   def not_found(error):

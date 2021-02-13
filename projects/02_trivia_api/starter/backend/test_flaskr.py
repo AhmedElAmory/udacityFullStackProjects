@@ -5,6 +5,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flaskr import create_app
 from models import setup_db, Question, Category
+from dotenv import load_dotenv
+import json
+
+load_dotenv()
 
 
 class TriviaTestCase(unittest.TestCase):
@@ -14,8 +18,8 @@ class TriviaTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
-        self.database_name = "trivia"
-        self.database_path = "postgres://postgres:postgres@{}/{}".format('localhost:5432', self.database_name)
+        self.database_name = "trivia_test"
+        self.database_path = "postgres://postgres:{}@{}/{}".format(os.getenv("DATABASE_PASSWORD"),'localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
 
 
@@ -64,9 +68,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['message'], 'Not found')
     
 
-
-
-
     def test_search(self):
         x = '{"searchTerm":"title"}'
         res = self.client().post('/questions/search', json=json.loads(x))
@@ -76,7 +77,7 @@ class TriviaTestCase(unittest.TestCase):
         
 
     def test_questions_by_category(self):
-        res = self.client().get('/categories/1/questions')
+        res = self.client().get('/category/1/questions')
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
@@ -84,13 +85,12 @@ class TriviaTestCase(unittest.TestCase):
 
 
     def test_delete_question(self):
-        res = self.client().delete('/question/1')
+        res = self.client().delete('/question/2')
         data = json.loads(res.data)
 
-        question = Question.query.filter(Question.id == 1).one_or_none()
 
-        self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'], False)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
         
 
     def test_404_if_question_does_not_exist(self):
